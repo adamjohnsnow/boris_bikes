@@ -2,11 +2,10 @@ require 'boris-bikes'
 
 describe DockingStation do
 
-  dockingstation = DockingStation.new
-  bike = dockingstation.release_bike
+  bike = Bike.new
 
   it 'Docking station responds to :release_bike' do
-    expect(dockingstation).to respond_to :release_bike
+    expect(subject).to respond_to :release_bike
   end
 
   it 'Docking station repsonds_to to :working' do
@@ -14,17 +13,20 @@ describe DockingStation do
   end
 
   it 'Docking station responds to :release_bike' do
-    expect(dockingstation).to respond_to(:dock_bike).with(1).argument
+    expect(subject).to respond_to(:dock_bike).with(1).argument
   end
 
   it 'responds to #bike' do
-    expect(dockingstation).to respond_to(:bike)
+    expect(subject).to respond_to(:bike)
   end
 
   it 'returns bike instance on #bike' do
-    dockingstation.dock_bike(bike)
-    expect(dockingstation.bike).to eq bike
+    subject.dock_bike(bike)
+    expect(subject.bike).to eq bike
   end
 
+  it 'No bikes raises error' do
+   expect{subject.release_bike}.to raise_error "There are no bikes"
+  end
 
 end
