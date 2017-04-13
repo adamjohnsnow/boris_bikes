@@ -29,36 +29,37 @@ describe DockingStation do
     expect{subject.dock(Bike.new)}.to_not raise_error "Bike already docked"
   end
 
-  it "check docking station can have capacity" do
-    expect(subject.capacity.class).to eq Array
+  it "check docking station can have bikes" do
+    expect(subject.bikes.class).to eq Array
   end
 
   it "dock can accept more than one bike" do
     subject.dock(Bike.new)
-    expect(subject.capacity.count).to eq 1
+    expect(subject.bikes.count).to eq 1
     subject.dock(Bike.new)
-    expect(subject.capacity.count).to eq 2
+    expect(subject.bikes.count).to eq 2
   end
 
   it 'dock releases a Bike from capacity' do
     subject.dock(Bike.new)
-    expect(subject.capacity.count).to eq 1
+    expect(subject.bikes.count).to eq 1
     subject.release_bike
-    expect(subject.capacity.count).to eq 0
+    expect(subject.bikes.count).to eq 0
   end
 
-  it "cannot dock a bike if #capacity has 20 bikes" do
-    20.times {subject.dock Bike.new}
+  it "cannot dock a bike if #bikes is at #bikes" do
+    DockingStation::DEFAULT_CAPACITY.times {subject.dock Bike.new}
     expect {subject.dock(Bike.new)}.to raise_error "Dock full"
   end
 
-  it "new dock is empty" do
-    expect(subject).to be_empty
+  it "new dock can take an argument for #capacity" do
+      ds = DockingStation.new(14)
+      expect(ds.capacity).to eq 14
+  end
+  
+  it "new dock initializes with #DEFAULT_CAPACITY of 20" do
+      expect(subject.capacity).to eq 20
   end
 
-  it "#capacity is #full at 20 bikes" do
-    20.times {subject.dock Bike.new}
-    expect(subject).to be_full
-  end
 
 end
