@@ -1,4 +1,5 @@
 class DockingStation
+#test
 
   def release_bike
       fail "There are no bikes" unless @bike
