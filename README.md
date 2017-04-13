@@ -24,6 +24,8 @@ Docking Station  | release_from_dock
 
 #### Pairing Contributors
 
+Day  | Partner
+------------- | -------------
 Tuesday  | Slaiman
 Wednesday  | Paul
 Thursday  | Jaiye
