@@ -1,3 +1,29 @@
-## Boris Bikes
+## Boris Bike project
+junior developers solving bicycle docking problems.
 
-A program to emulate the docking stations, bikes, and infrastructure (repair staff, and so on) used in the Boris Bikes system.
+
+#### User Stories
+
+```
+As a person,
+So that I can use a bike,
+I'd like a docking station to release a bike.
+
+As a person,
+So that I can use a good bike,
+I'd like to see if a bike is working
+```
+
+#### Functional Representation
+
+Objects  | Messages
+------------- | -------------
+Person  |
+Bike  | is_working
+Docking Station  | release_from_dock
+
+#### Pairing Contributors
+
+Tuesday  | Slaiman
+Wednesday  | Paul
+Thursday  | Jaiye
