@@ -1,7 +1,9 @@
 require 'boris-bikes'
 
 describe Bike do
-  it 'Bike repsonds_to :working?' do bike = Bike.new
-    expect(bike).to respond_to :working?
+
+  it 'new bikes always work' do
+    expect(subject.working).to eq true
   end
+
 end

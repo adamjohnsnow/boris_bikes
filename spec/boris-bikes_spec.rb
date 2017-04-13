@@ -8,10 +8,6 @@ describe DockingStation do
     expect(subject).to respond_to :release_bike
   end
 
-  it 'Docking station repsonds_to to :working' do
-    expect(bike).to respond_to :working?
-  end
-
   it 'Docking station responds to :release_bike' do
     expect(subject).to respond_to(:dock).with(1).argument
   end
@@ -48,7 +44,10 @@ describe DockingStation do
   end
 
   it "cannot dock a bike if #bikes is at #bikes" do
-    DockingStation::DEFAULT_CAPACITY.times {subject.dock Bike.new}
+
+    newcap = DockingStation::DEFAULT_CAPACITY/2
+    newcap.times {subject.dock Bike.new}
+    newcap.times {subject.dock Bike.new(false)}
     expect {subject.dock(Bike.new)}.to raise_error "Dock full"
   end
 
@@ -56,10 +55,25 @@ describe DockingStation do
       ds = DockingStation.new(14)
       expect(ds.capacity).to eq 14
   end
-  
+
   it "new dock initializes with #DEFAULT_CAPACITY of 20" do
       expect(subject.capacity).to eq 20
   end
 
+  it "check docking station can have broken bikes" do
+    expect(subject.broken_bikes.class).to eq Array
+  end
+
+  it "working bikes go into #bikes" do
+    b = Bike.new()
+    subject.dock(b) if b.working
+    expect(subject.bikes.count).to eq 1
+  end
+
+  it "broken bikes go into #broken_bikes" do
+    b = Bike.new(false)
+    subject.dock(b) if !b.working
+    expect(subject.broken_bikes.count).to eq 1
+  end
 
 end
