@@ -13,7 +13,7 @@ describe DockingStation do
   end
 
   it 'Docking station responds to :release_bike' do
-    expect(subject).to respond_to(:dock_bike).with(1).argument
+    expect(subject).to respond_to(:dock).with(1).argument
   end
 
   it 'responds to #bike' do
@@ -21,7 +21,7 @@ describe DockingStation do
   end
 
   it 'returns bike instance on #bike' do
-    subject.dock_bike(bike)
+    subject.dock(bike)
     expect(subject.bike).to eq bike
   end
 
@@ -29,4 +29,8 @@ describe DockingStation do
    expect{subject.release_bike}.to raise_error "There are no bikes"
   end
 
+  it "dock will not accept more than one bike" do
+    subject.dock(Bike.new)
+    expect{subject.dock(Bike.new)}.to raise_error "Bike already docked"
+  end
 end
