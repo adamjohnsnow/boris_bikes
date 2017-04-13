@@ -1,19 +1,21 @@
 class DockingStation
-#test
+
+  attr_reader :bike, :capacity
 
   def release_bike
-      fail "There are no bikes" unless @bike
-      @bike
+      fail "There are no bikes" if @capacity.count == 0
+      @capacity.shift
   end
 
   def dock(bike)
-    fail "Bike already docked" unless @bike == nil
-    @bike = bike
+   fail "Dock full" if capacity.count == 20
+    capacity << bike
   end
 
-  def bike
-    @bike
+  def initialize
+    @capacity = []
   end
+
 
 end
 
