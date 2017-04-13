@@ -51,4 +51,14 @@ describe DockingStation do
     20.times {subject.dock Bike.new}
     expect {subject.dock(Bike.new)}.to raise_error "Dock full"
   end
+
+  it "new dock is empty" do
+    expect(subject).to be_empty
+  end
+
+  it "#capacity is #full at 20 bikes" do
+    20.times {subject.dock Bike.new}
+    expect(subject).to be_full
+  end
+
 end
