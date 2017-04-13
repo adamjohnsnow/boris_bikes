@@ -3,8 +3,8 @@ class DockingStation
   attr_reader :bike, :capacity
 
   def release_bike
-      fail "There are no bikes" if @capacity.count == 0
-      @capacity.shift
+      fail "There are no bikes" if capacity.count == 0
+      capacity.shift
   end
 
   def dock(bike)
