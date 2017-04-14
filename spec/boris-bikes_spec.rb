@@ -1,14 +1,14 @@
-require 'boris-bikes'
+require './lib/docking_station'
+require './lib/bike'
 
 describe DockingStation do
 
-  bike = Bike.new
 
   it 'Docking station responds to :release_bike' do
     expect(subject).to respond_to :release_bike
   end
 
-  it 'Docking station responds to :release_bike' do
+  it 'Docking station #dock to :release_bike' do
     expect(subject).to respond_to(:dock).with(1).argument
   end
 
@@ -22,7 +22,7 @@ describe DockingStation do
 
   it "dock will accept more than one bike" do
     subject.dock(Bike.new)
-    expect{subject.dock(Bike.new)}.to_not raise_error "Bike already docked"
+    expect{subject.dock(Bike.new)}.to_not raise_error
   end
 
   it "check docking station can have bikes" do
@@ -43,11 +43,10 @@ describe DockingStation do
     expect(subject.bikes.count).to eq 0
   end
 
-  it "cannot dock a bike if #bikes is at #bikes" do
-
-    newcap = DockingStation::DEFAULT_CAPACITY/2
-    newcap.times {subject.dock Bike.new}
-    newcap.times {subject.dock Bike.new(false)}
+  it "cannot dock a bike if #bikes plus #broken_bikes is at #capacity" do
+    halfcap = DockingStation::DEFAULT_CAPACITY/2
+    halfcap.times {subject.dock Bike.new}
+    halfcap.times {subject.dock Bike.new(false)}
     expect {subject.dock(Bike.new)}.to raise_error "Dock full"
   end
 
@@ -74,6 +73,19 @@ describe DockingStation do
     b = Bike.new(false)
     subject.dock(b) if !b.working
     expect(subject.broken_bikes.count).to eq 1
+  end
+
+end
+
+describe Bike do
+
+  it 'new bikes always work' do
+    expect(subject.working).to eq true
+  end
+
+  it 'bikes can be broken' do
+    b = Bike.new(false)
+    expect(subject.working).to eq true
   end
 
 end
