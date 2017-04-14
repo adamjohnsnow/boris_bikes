@@ -1,0 +1,17 @@
+load './lib/garage.rb'
+grg = Garage.new
+ds = DockingStation.new
+ds.dock(Bike.new)
+ds.dock(Bike.new(false))
+ds.broken_bikes
+grg.collect_bikes(ds)
+grg.fix_bikes
+grg.van
+grg.return_bikes(ds)
+p ds.bikes
+4.times {ds.dock(Bike.new)}
+3.times {ds.dock(Bike.new(false))}
+grg.collect_bikes(ds)
+grg.fix_bikes
+p grg
+grg.return_bikes(ds)
