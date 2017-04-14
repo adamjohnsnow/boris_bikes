@@ -17,12 +17,24 @@ describe DockingStation do
   end
 
   it 'No bikes raises error' do
-   expect{subject.release_bike}.to raise_error "There are no bikes"
+   expect{subject.release_bike}.to raise_error "There are no working bikes"
   end
 
   it "dock will accept more than one bike" do
     subject.dock(Bike.new)
     expect{subject.dock(Bike.new)}.to_not raise_error
+  end
+
+  it "an instance of #bike can hold docked #status" do
+    bike = Bike.new
+    subject.dock(bike)
+    expect(bike.status).to eq "docked"
+  end
+
+  it "a single instance of #bike cannot be docked twice" do
+    bike = Bike.new
+    subject.dock(bike)  
+    expect(subject.dock(bike)).to raise_error "Bike already docked"
   end
 
   it "check docking station can have bikes" do
