@@ -8,8 +8,8 @@ describe DockingStation do
     expect(subject).to respond_to :release_bike
   end
 
-  it 'Docking station #dock to :release_bike' do
-    expect(subject).to respond_to(:dock).with(1).argument
+  it 'Docking station #dock to accept #bikes' do
+    expect{subject.dock("TEST")}.to raise_error "You cannot dock that"
   end
 
   it 'responds to #bike' do
@@ -33,8 +33,8 @@ describe DockingStation do
 
   it "a single instance of #bike cannot be docked twice" do
     bike = Bike.new
-    subject.dock(bike)  
-    expect(subject.dock(bike)).to raise_error "Bike already docked"
+    subject.dock(bike)
+    expect{subject.dock(bike)}.to raise_error "Bike already docked"
   end
 
   it "check docking station can have bikes" do
